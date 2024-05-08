@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 21:20:23 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/08 16:49:31 by gholloco         ###   ########.fr       */
+/*   Created: 2024/05/08 16:04:28 by gholloco          #+#    #+#             */
+/*   Updated: 2024/05/08 16:46:59 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	clean_threads(t_data *data)
+void *thread_routine(void *data)
 {
-	int	i;
-	
-	i = -1;
-	while (++i < data->nb_philo)
-	{
-		pthread_join(data->philosophers[i].id, NULL);
-	}
-	return (0);
-}
+	t_philo	*philo;
 
-int	main(int argc, char **argv)
-{
-	t_data	data;
-
-	if (parse(&data, argc, argv))
-		return(1);
-	init_forks(&data);
-	init_philosophers(&data);	
-	clean_threads(&data);
+	philo = data;
+	printf("%d\n", philo->index);
+	return (NULL);
 }

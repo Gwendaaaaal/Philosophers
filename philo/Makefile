@@ -6,13 +6,13 @@
 #    By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 21:58:52 by gholloco          #+#    #+#              #
-#    Updated: 2024/04/30 22:04:19 by gholloco         ###   ########.fr        #
+#    Updated: 2024/05/08 16:36:00 by gholloco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SOURCES = main.c parse.c utils.c
+SOURCES = init.c main.c parse.c philo.c utils.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

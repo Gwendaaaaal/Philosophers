@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:37:19 by gholloco          #+#    #+#             */
-/*   Updated: 2024/04/30 21:47:47 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:07:34 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,12 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	return (res * minus);
+}
+
+long int	get_timestamp_in_ms(void)
+{
+	struct timeval	time;
+	
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
