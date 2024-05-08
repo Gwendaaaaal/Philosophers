@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:28:48 by gholloco          #+#    #+#             */
-/*   Updated: 2024/04/30 22:08:42 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:10:44 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ static int	check_args(char **argv)
 	return (0);
 }
 
-int	parse(t_settings *settings, int argc, char **argv)
+int	parse(t_data *data, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (printf("Wrong number of arguments\n"), 1);
 	if (check_args(argv))
 		return (printf("Wrong types of arguments\n"), 1);
-	settings->nb_philo = ft_atoi(argv[1]);
-	settings->time_to_die = ft_atoi(argv[2]);
-	settings->time_to_eat = ft_atoi(argv[3]);
-	settings->time_to_sleep = ft_atoi(argv[4]);
+	data->nb_philo = ft_atoi(argv[1]);
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		settings->needed_lunchs = ft_atoi(argv[5]);
+		data->needed_lunchs = ft_atoi(argv[5]);
 	else
-		settings->needed_lunchs = 0;
+		data->needed_lunchs = 0;
 	return (0);
 }
