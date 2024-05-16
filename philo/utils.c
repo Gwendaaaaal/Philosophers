@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:37:19 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/08 17:07:34 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/05/15 21:35:10 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,29 @@ long int	get_timestamp_in_ms(void)
 {
 	struct timeval	time;
 	
-	gettimeofday(&time, NULL);
+	if (gettimeofday(&time, NULL) < 0)
+		return (0);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+int	write_message(t_data *data, int id, int message)
+{
+	long int	time;
+
+	time = get_timestamp_in_ms();
+	if (!time)
+		return (1);
+	pthread_mutex_lock(&data->write_mutex);
+	if (message == EAT)
+		printf("%ld %d is eating\n", time - data->start_time, id);
+	else if (message == THINK)
+		printf("%ld %d is thinking\n", time - data->start_time, id);
+	else if (message == SLEEP)
+		printf("%ld %d is sleeping\n", time - data->start_time, id);
+	else if (message == FORK)
+		printf("%ld %d has taken a fork\n", time - data->start_time, id);
+	else if (message == DEAD)
+		printf("%ld %d died\n", time - data->start_time, id);
+	pthread_mutex_unlock(&data->write_mutex);
+	return (0);
 }
