@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:37:19 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/15 21:35:10 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:49:47 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	write_message(t_data *data, int id, int message)
 {
 	long int	time;
 
+	if (data->stop)
+		return (1);
 	time = get_timestamp_in_ms();
 	if (!time)
 		return (1);

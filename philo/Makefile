@@ -6,19 +6,19 @@
 #    By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 21:58:52 by gholloco          #+#    #+#              #
-#    Updated: 2024/05/16 18:49:39 by gholloco         ###   ########.fr        #
+#    Updated: 2024/05/17 18:11:30 by gholloco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SOURCES = actions.c exit.c init.c main.c parse.c philo.c utils.c
+SOURCES = actions.c exit.c init.c main.c monitor.c parse.c philo.c utils.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
 CC = cc
 
-CFLAGS = -g -fsanitize=thread -Wall -Werror -Wextra -pthread
+CFLAGS = -g -Wall -Werror -Wextra -pthread
 
 RMFLAGS = -rf
 

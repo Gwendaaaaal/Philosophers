@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:28:48 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/07 11:10:44 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:42:00 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ int	parse(t_data *data, int argc, char **argv)
 	if (argc == 6)
 		data->needed_lunchs = ft_atoi(argv[5]);
 	else
-		data->needed_lunchs = 0;
+		data->needed_lunchs = -1;
 	return (0);
 }

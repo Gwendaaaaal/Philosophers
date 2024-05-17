@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:20:23 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/15 21:34:41 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:13:44 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (parse(&data, argc, argv))
-		return(1);
-	init_data(&data);
-	init_forks(&data);
-	init_philosophers(&data);	
-	clean_threads(&data);
+		return (1);
+	if (init(&data))
+		return (1);
+	monitor(&data);
+	free_everything(&data);
+	return (0);
 }
