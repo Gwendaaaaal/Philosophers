@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:25:59 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/17 18:15:13 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:17:36 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	init_forks(t_data *data)
 			return (1);
 	}
 	if (pthread_mutex_init(&data->write_mutex, NULL))
+		return (1);
+	if (pthread_mutex_init(&data->stop_mutex, NULL))
 		return (1);
 	return (0);
 }

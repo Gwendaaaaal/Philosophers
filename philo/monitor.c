@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:24:06 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/17 19:18:14 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:18:41 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int	monitor(t_data *data)
 		if (death(&data->philosophers[i]))
 		{
 			write_message(data, data->philosophers[i].index, DEAD);
+			pthread_mutex_lock(&data->stop_mutex);
 			data->stop = 1;
+			pthread_mutex_unlock(&data->stop_mutex);
 		}
 		usleep(100);
 		i++;

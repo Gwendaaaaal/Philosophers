@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 19:40:05 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/17 16:33:29 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:41:47 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	free_everything(t_data *data)
 		free(data->forks[i]);
 	}
 	pthread_mutex_destroy(&data->write_mutex);
+	pthread_mutex_destroy(&data->stop_mutex);
 	free(data->forks);
 	free(data->philosophers);
 	return (0);

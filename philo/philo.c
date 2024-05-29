@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 16:04:28 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/17 19:56:06 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:42:10 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ void	*thread_routine(void *data)
 
 	philo = data;
 	shift_philos(philo);
-	while (philo->nb_lunchs != philo->data->needed_lunchs)
+	while (philo->nb_lunchs != philo->data->needed_lunchs && !philo->data->stop)
 	{
 		if (!philo->data->stop)
-			take_forks(philo);
+			take_left_fork(philo);
+		if (!philo->data->stop)
+			take_right_fork(philo);
 		if (!philo->data->stop)
 			eat(philo);
 		if (!philo->data->stop)

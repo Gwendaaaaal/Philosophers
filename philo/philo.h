@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:25:09 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/17 18:14:03 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:30:27 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,13 @@ typedef struct s_data
 	long int		start_time;
 	t_philo			*philosophers;
 	pthread_mutex_t write_mutex;
+	pthread_mutex_t stop_mutex;
 	pthread_mutex_t	**forks;
 } t_data;
 
 // actions.c
-int	take_forks(t_philo *philo);
+int take_left_fork(t_philo *philo);
+int take_right_fork(t_philo *philo);
 int	drop_forks(t_philo *philo);
 int	eat(t_philo *philo);
 int	nap(t_philo *philo);
