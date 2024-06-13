@@ -6,17 +6,29 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:24:06 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/29 19:18:41 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/06/13 10:39:33 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
 
-int enough_lunchs(t_data *data)
+int	stop(t_data *data)
 {
-	int i;
-	
+	pthread_mutex_lock(&data->stop_mutex);
+	if (data->stop)
+	{
+		pthread_mutex_unlock(&data->stop_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&data->stop_mutex);
+	return (0);
+}
+
+int	enough_lunchs(t_data *data)
+{
+	int	i;
+
 	i = -1;
 	while (++i < data->nb_philo)
 	{
@@ -33,8 +45,13 @@ int enough_lunchs(t_data *data)
 
 int	death(t_philo *philo)
 {
-	if (get_timestamp_in_ms() - philo->last_lunch >= philo->data->time_to_die)	
+	pthread_mutex_lock(&philo->last_lunch_mutex);
+	if (get_timestamp_in_ms() - philo->last_lunch >= philo->data->time_to_die)
+	{
+		pthread_mutex_unlock(&philo->last_lunch_mutex);
 		return (1);
+	}
+	pthread_mutex_unlock(&philo->last_lunch_mutex);
 	return (0);
 }
 
@@ -43,7 +60,7 @@ int	monitor(t_data *data)
 	int	i;
 
 	i = 0;
-	while (!enough_lunchs(data) && !data->stop)
+	while (!enough_lunchs(data) && !stop(data))
 	{
 		if (i == data->nb_philo)
 			i = 0;
@@ -57,6 +74,5 @@ int	monitor(t_data *data)
 		usleep(100);
 		i++;
 	}
-	// printf("On sort de monitor\n");
 	return (0);
 }

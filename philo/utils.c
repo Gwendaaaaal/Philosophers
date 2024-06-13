@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:37:19 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/17 18:49:47 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/06/13 10:39:08 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_atoi(const char *nptr)
 long int	get_timestamp_in_ms(void)
 {
 	struct timeval	time;
-	
+
 	if (gettimeofday(&time, NULL) < 0)
 		return (0);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
@@ -65,7 +65,7 @@ int	write_message(t_data *data, int id, int message)
 {
 	long int	time;
 
-	if (data->stop)
+	if (stop(data))
 		return (1);
 	time = get_timestamp_in_ms();
 	if (!time)
