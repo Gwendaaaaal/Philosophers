@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:25:59 by gholloco          #+#    #+#             */
-/*   Updated: 2024/06/26 18:34:34 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:16:39 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,11 @@ int	init_philosophers(t_data *data)
 		data->philosophers[i].enough_lunchs = 0;
 		data->philosophers[i].last_lunch = data->start_time;
 		data->philosophers[i].left_fork = data->forks[i];
+		data->philosophers[i].right_fork = data->forks[i + 1];
 		if (data->nb_philo <= 1)
 			data->philosophers[i].right_fork = NULL;
 		if (i + 1 == data->nb_philo)
 			data->philosophers[i].right_fork = data->forks[0];
-		else
-			data->philosophers[i].right_fork = data->forks[i + 1];
 		pthread_mutex_init(&data->philosophers[i].enough_lunchs_mutex, NULL);
 		pthread_mutex_init(&data->philosophers[i].last_lunch_mutex, NULL);
 		pthread_create(&data->philosophers[i].id, NULL,
