@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 20:25:09 by gholloco          #+#    #+#             */
-/*   Updated: 2024/06/13 10:37:19 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:33:45 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ int			ft_atoi(const char *nptr);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 long int	get_timestamp_in_ms(void);
 int			write_message(t_data *data, int id, int message);
+void		ft_sleep(int time, t_philo *philo);
 
 #endif

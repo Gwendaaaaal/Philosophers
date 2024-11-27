@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:37:19 by gholloco          #+#    #+#             */
-/*   Updated: 2024/06/13 10:39:08 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:35:53 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ int	write_message(t_data *data, int id, int message)
 {
 	long int	time;
 
-	if (stop(data))
-		return (1);
 	time = get_timestamp_in_ms();
 	if (!time)
+		return (1);
+	if (stop(data) && message != DEAD)
 		return (1);
 	pthread_mutex_lock(&data->write_mutex);
 	if (message == EAT)
@@ -83,4 +83,12 @@ int	write_message(t_data *data, int id, int message)
 		printf("%ld %d died\n", time - data->start_time, id);
 	pthread_mutex_unlock(&data->write_mutex);
 	return (0);
+}
+
+void	ft_sleep(int time, t_philo *philo)
+{
+	long int start_time;
+	start_time = get_timestamp_in_ms();
+	while ((get_timestamp_in_ms() - start_time) < time && !stop(philo->data))
+		usleep(500);
 }

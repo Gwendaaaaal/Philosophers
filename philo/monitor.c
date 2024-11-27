@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:24:06 by gholloco          #+#    #+#             */
-/*   Updated: 2024/06/13 10:39:33 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:25:42 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 
 int	stop(t_data *data)
 {
+	int stop;
+
 	pthread_mutex_lock(&data->stop_mutex);
-	if (data->stop)
-	{
-		pthread_mutex_unlock(&data->stop_mutex);
-		return (1);
-	}
+	stop = data->stop;
 	pthread_mutex_unlock(&data->stop_mutex);
-	return (0);
+	return (stop);
 }
 
 int	enough_lunchs(t_data *data)
@@ -40,6 +38,9 @@ int	enough_lunchs(t_data *data)
 		}
 		pthread_mutex_unlock(&data->philosophers[i].enough_lunchs_mutex);
 	}
+	pthread_mutex_lock(&data->stop_mutex);
+	data->stop = 1;
+	pthread_mutex_unlock(&data->stop_mutex);
 	return (1);
 }
 
@@ -66,12 +67,13 @@ int	monitor(t_data *data)
 			i = 0;
 		if (death(&data->philosophers[i]))
 		{
-			write_message(data, data->philosophers[i].index, DEAD);
 			pthread_mutex_lock(&data->stop_mutex);
 			data->stop = 1;
 			pthread_mutex_unlock(&data->stop_mutex);
+			usleep(50);
+			write_message(data, data->philosophers[i].index, DEAD);
 		}
-		usleep(100);
+		usleep(10);
 		i++;
 	}
 	return (0);

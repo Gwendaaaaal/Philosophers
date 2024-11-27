@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 18:15:44 by gholloco          #+#    #+#             */
-/*   Updated: 2024/06/13 10:38:56 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:25:37 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,15 @@ int	take_forks(t_philo *philo)
 
 int	take_left_fork(t_philo *philo)
 {
-	pthread_mutex_lock(philo->data->forks[philo->index - 1]);
+	pthread_mutex_lock(philo->left_fork);
 	write_message(philo->data, philo->index, FORK);
 	return (0);
 }
 
 int	take_right_fork(t_philo *philo)
 {
-	if (philo->index == philo->data->nb_philo)
-	{
-		pthread_mutex_lock(philo->data->forks[0]);
-		write_message(philo->data, philo->index, FORK);
-		return (0);
-	}
-	else
-	{
-		pthread_mutex_lock(philo->data->forks[philo->index]);
-		write_message(philo->data, philo->index, FORK);
-		return (0);
-	}
-	pthread_mutex_unlock(philo->data->forks[philo->index - 1]);
+	pthread_mutex_lock(philo->right_fork);
+	write_message(philo->data, philo->index, FORK);
 	return (0);
 }
 
@@ -84,16 +73,16 @@ int	eat(t_philo *philo)
 		return (1);
 	write_message(philo->data, philo->index, EAT);
 	philo->nb_lunchs++;
+	pthread_mutex_lock(&philo->last_lunch_mutex);
+	philo->last_lunch = get_timestamp_in_ms();
+	pthread_mutex_unlock(&philo->last_lunch_mutex);
+	ft_sleep(philo->data->time_to_eat, philo);
 	if (philo->nb_lunchs == philo->data->needed_lunchs)
 	{
 		pthread_mutex_lock(&philo->enough_lunchs_mutex);
 		philo->enough_lunchs = 1;
 		pthread_mutex_unlock(&philo->enough_lunchs_mutex);
 	}
-	pthread_mutex_lock(&philo->last_lunch_mutex);
-	philo->last_lunch = get_timestamp_in_ms();
-	pthread_mutex_unlock(&philo->last_lunch_mutex);
-	usleep(philo->data->time_to_eat * 1000);
 	drop_forks(philo);
 	return (0);
 }
