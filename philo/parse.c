@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 21:28:48 by gholloco          #+#    #+#             */
-/*   Updated: 2024/05/17 15:42:00 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/28 15:05:19 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	check_args(char **argv)
 		num_len = 0;
 		while (argv[i][num_len])
 			num_len++;
+		if (num_len == 1 && !ft_strncmp(argv[i], "0", 2))
+			return (1);
 		if (num_len == 10 && ft_strncmp(argv[i], "2147483647", 10) > 0)
 			return (1);
 		if (num_len >= 11)

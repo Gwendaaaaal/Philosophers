@@ -6,7 +6,7 @@
 #    By: gholloco <gwendal.hollocou@orange.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 21:58:52 by gholloco          #+#    #+#              #
-#    Updated: 2024/05/17 18:11:30 by gholloco         ###   ########.fr        #
+#    Updated: 2024/11/28 15:26:40 by gholloco         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJECTS = $(SOURCES:.c=.o)
 
 CC = cc
 
-CFLAGS = -g -Wall -Werror -Wextra -pthread
+CFLAGS = -g -Wall -Werror -Wextra
 
 RMFLAGS = -rf
 

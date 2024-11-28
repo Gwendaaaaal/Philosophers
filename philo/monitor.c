@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:24:06 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/27 17:25:42 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:28:38 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	stop(t_data *data)
 {
-	int stop;
+	int	stop;
 
 	pthread_mutex_lock(&data->stop_mutex);
 	stop = data->stop;

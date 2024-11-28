@@ -6,7 +6,7 @@
 /*   By: gholloco <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 11:25:59 by gholloco          #+#    #+#             */
-/*   Updated: 2024/11/27 15:27:37 by gholloco         ###   ########.fr       */
+/*   Updated: 2024/11/28 15:20:44 by gholloco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 int	init(t_data *data)
 {
 	if (init_data(data) || init_forks(data) || init_philosophers(data))
+	{
+		printf("Something wrong happened with an allocation ");
+		printf("or an initialization.\n");
 		return (1);
+	}
 	return (0);
 }
 
@@ -52,6 +56,18 @@ int	init_forks(t_data *data)
 	return (0);
 }
 
+int	init_philo_mutexes(t_data *data, int i)
+{
+	if (pthread_mutex_init(&data->philosophers[i].enough_lunchs_mutex, NULL))
+		return (1);
+	if (pthread_mutex_init(&data->philosophers[i].last_lunch_mutex, NULL))
+		return (1);
+	if (pthread_create(&data->philosophers[i].id, NULL,
+			thread_routine, (void *) &data->philosophers[i]))
+		return (1);
+	return (0);
+}
+
 int	init_philosophers(t_data *data)
 {
 	int	i;
@@ -74,10 +90,8 @@ int	init_philosophers(t_data *data)
 			data->philosophers[i].right_fork = data->forks[0];
 		else
 			data->philosophers[i].right_fork = data->forks[i + 1];
-		pthread_mutex_init(&data->philosophers[i].enough_lunchs_mutex, NULL);
-		pthread_mutex_init(&data->philosophers[i].last_lunch_mutex, NULL);
-		pthread_create(&data->philosophers[i].id, NULL,
-			thread_routine, (void *) &data->philosophers[i]);
+		if (init_philo_mutexes(data, i))
+			return (1);
 	}
 	return (0);
 }
